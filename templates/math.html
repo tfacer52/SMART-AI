@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Игра: Математика</title>
+
+        <script src="/static/script.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .game-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        #mathQuestion {
+            font-size: 48px;
+            font-weight: bold;
+            color: #34495e;
+            display: block;
+            margin: 20px 0;
+        }
+
+        #mathInput {
+            width: 80px;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #mathInput:focus {
+            border-color: #3498db;
+        }
+
+        #mathCheck {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #mathCheck:hover {
+            background-color: #2980b9;
+        }
+
+        #mathResult {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 20px;
+            min-height: 24px;
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 999;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="{{ 'dark-mode' if dark_mode else '' }} {{ 'large-mode' if session.get('large_mode') else '' }}">
+
+<div class="game-card">
+    <h2>Реши пример</h2>
+    <div id="mathGame">
+        <span id="mathQuestion"></span>
+        <input type="number" id="mathInput" placeholder="?" autofocus>
+        <button id="mathCheck">Проверить</button>
+        <p id="mathResult"></p>
+    </div>
+</div>
+
+<script>
+    const mathQuestion = document.getElementById("mathQuestion");
+    const mathInput = document.getElementById("mathInput");
+    const mathCheck = document.getElementById("mathCheck");
+    const mathResult = document.getElementById("mathResult");
+
+    let currentA, currentB;
+
+    function generateMath() {
+        currentA = Math.floor(Math.random() * 10) + 1;
+        currentB = Math.floor(Math.random() * 10) + 1;
+        mathQuestion.innerText = `${currentA} + ${currentB} = `;
+        mathResult.innerText = "";
+        mathInput.focus();
+    }
+
+    function checkAnswer() {
+        const userAnswer = parseInt(mathInput.value);
+        const correctAnswer = currentA + currentB;
+
+        if (userAnswer === correctAnswer) {
+            mathResult.style.color = "#2ecc71";
+            mathResult.innerText = "✅ Верно!";
+            showConfetti();
+            setTimeout(generateMath, 1500);
+        } else {
+            mathResult.style.color = "#e74c3c";
+            mathResult.innerText = "❌ Ошибка, попробуй еще раз";
+        }
+        mathInput.value = "";
+    }
+
+    mathCheck.onclick = checkAnswer;
+
+    mathInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") checkAnswer();
+    });
+
+    function showConfetti() {
+        for (let i = 0; i < 30; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti-piece";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = (1.5 + Math.random()) + "s";
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
+
+    generateMath();
+</script>
+</body>
+</html>

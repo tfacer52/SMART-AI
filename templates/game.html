@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Игра: Быстрый клик</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="/static/script.js"></script>
+
+</head>
+<body class="{{ 'dark-mode' if dark_mode else '' }} {% if large_mode %}large-mode{% endif %}">
+
+<div class="container">
+    <h1>Игра: Быстрый клик!</h1>
+    <p>Нажимай кнопку как можно быстрее!</p>
+    <button id="clickButton">Кликни меня!</button>
+    <p>Счёт: <span id="score">0</span></p>
+    <a href="{{ url_for('math_click') }}">Математика</a>
+    <a href="{{ url_for('selection_click') }}">Игра перетаскивания</a>
+    <a href="{{ url_for('index') }}">Назад</a>
+
+</div>
+
+</body>
+</html>
+
+

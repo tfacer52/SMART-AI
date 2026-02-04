@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ИГРЫ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="/static/script.js"></script>
+
+</head>
+<body class="{{ 'dark-mode' if dark_mode else '' }} {% if large_mode %}large-mode{% endif %}">
+
+<div class="links">
+    <a href="{{url_for('game_click')}}">Игра на скорость</a>
+    <a href="{{ url_for('math_click') }}">Математика</a>
+    <a href="{{ url_for('selection_click') }}" class="auto-target">Игра перетаскивания</a>
+    <a href="{{ url_for('index') }}">Назад</a>
+
+</div>
+
+</body>
+</html>

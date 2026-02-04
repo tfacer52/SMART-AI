@@ -1,0 +1,434 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-main: linear-gradient(135deg, #eef2f7, #dfe7f3);
+    --card-bg: #ffffff;
+    --primary: #4a90e2;
+    --success: #4CAF50;
+    --danger: #f44336;
+    --text-main: #2c3e50;
+    --text-muted: #666;
+    --radius: 18px;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--bg-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-main);
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="10" fill="rgba(255,204,0,0.5)" stroke="black" stroke-width="2"/></svg>'), auto;
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+button,
+.btn {
+    width: 100%;
+    padding: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    touch-action: manipulation;
+    border-radius: 14px;
+    border: 4px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    min-height: 80px;
+}
+
+.btn.success {
+    background: linear-gradient(135deg, #43cea2, #2ecc71);
+    color: white;
+}
+
+.btn.attempt {
+    background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+    color: white;
+}
+
+.btn.game {
+    background: #555;
+    color: white;
+}
+
+button:hover,
+.btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+button:focus {
+    outline: 5px solid #ffcc00;
+    border-color: #2c3e50;
+}
+
+.auto-target {
+    position: relative;
+    overflow: hidden;
+    outline: 8px solid transparent;
+    transition: outline 0.2s;
+}
+
+.dwell-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 6px;
+    background: #00ffcc;
+    width: 0%;
+    transition: width 2s linear; 
+}
+
+.auto-target:hover .dwell-progress {
+    width: 100%;
+    
+}
+
+.links {
+    margin-top: 25px;
+}
+
+.links a {
+    display: inline-flex;
+    margin: 10px;
+    font-size: 30px;
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+    width: 100%;
+    max-width: 520px;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    margin: 12px 0 20px;
+}
+
+.large-mode {
+    font-size: 1.5em;
+}
+
+.large-mode button {
+    padding: 24px;
+    font-size: 24px;
+}
+
+body.dark-mode {
+    background: #121212;
+    color: #eee;
+}
+
+body.dark-mode .container {
+    background: #1f1f1f;
+}
+
+body.dark-mode a {
+    color: #8ab4f8;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+.confetti-piece {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: fall 2.2s linear forwards;
+    pointer-events: none;
+}
+
+.game-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+#numbersContainer, 
+#slotsContainer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            min-height: 70px;
+        }
+
+#dragGame {
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.drag-item,
+.drop-slot {
+    width: 120px;
+    height: 120px;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    border: 4px dashed #bdc3c7;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.drag-item {
+            width: 60px;
+            height: 60px;
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            color: #3498db;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: grab;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+.drop-slot {
+            width: 64px;
+            height: 64px;
+            border: 3px dashed #bdc3c7;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #bdc3c7;
+            transition: all 0.3s ease;
+        }
+
+.drag-item:active {
+            cursor: grabbing;
+            transform: scale(1.1);
+        }
+
+        .drag-item:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+.drop-slot.filled {
+            background-color: #2ecc71 !important;
+            border: 3px solid #27ae60 !important;
+            color: white !important;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+
+#mathGame {
+    margin-top: 30px;
+}
+
+#mathInput {
+    width: 100px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#mathCheck {
+    margin-top: 15px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Базовая раскладка Dashboard */
+.app-dashboard {
+    display: grid;
+    grid-template-columns: 320px 1fr; /* Боковая панель 320px, остальное — контент */
+    width: 100vw;
+    height: 100vh;
+    background: #f0f4f8;
+}
+
+/* Стили боковой панели */
+.sidebar {
+    background: white;
+    padding: 30px;
+    border-right: 2px solid #e1e8ef;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.logo-icon { font-size: 50px; }
+
+/* Карточка статуса */
+.user-status-card {
+    background: #f8fafc;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.stat-box { text-align: center; }
+.stat-val { display: block; font-size: 24px; font-weight: bold; }
+.stat-desc { font-size: 12px; color: #64748b; }
+
+/* Основной контент */
+.main-content {
+    padding: 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Главная кнопка старта */
+.main-start-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    text-decoration: none;
+    height: 200px;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-label { font-size: 38px; font-weight: bold; }
+
+/* Сетка карточек-ссылок */
+
+.quick-access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card-link {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.card-link:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.card-icon { font-size: 40px; margin-bottom: 10px; display: block; }
+
+/* Адаптация под тёмную тему */
+body.dark-mode .app-dashboard { background: #121212; }
+body.dark-mode .sidebar, 
+body.dark-mode .card-link { background: #1f1f1f; border-color: #333; }
+body.dark-mode .user-status-card { background: #2d2d2d; }

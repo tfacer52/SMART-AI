@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Упражнение</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='large.css') }}">
+    <script src="/static/script.js"></script>
+    <audio src="/static/audio/shrek.wav"></audio>
+
+
+</head>
+<body class="{{ 'dark-mode' if dark_mode else '' }} {{ 'large-mode' if session.get('large_mode') else '' }}">
+
+<div class="container">
+    <h1>Упражнение</h1>
+
+    <a href="/game", style="font-size: 45px;" class="btn">Начать</a>
+
+   <div class="buttons">
+    <button class="btn success" onclick="sendResult(true)">✅ Получилось</button>
+    <button class="btn attempt" onclick="sendResult(false)">❌ Попытка</button>
+</div>
+
+<div class="links">
+    <a href="/settings" class="auto-target">Настройки</a>
+    <a href="/progress" class="auto-target">Прогресс</a>
+    <a href="/mouse_difficulty" class="auto-target">Мне трудно управлять мышью</a>
+    <a href="/games" class="auto-target">Мини игры</a>
+    <button onclick="toggleDarkMode()" class="btn auto-target dark-mode">Тёмная тема</button>
+</div>
+
+</body>
+</html>

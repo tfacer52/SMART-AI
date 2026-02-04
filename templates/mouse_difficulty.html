@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мне трудно управлять мышью</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='large.css') }}">
+    <script src="/static/script.js"></script>
+
+
+</head>
+<body id="body", class="{{ 'dark-mode' if dark_mode else '' }} {% if large_mode %}large-mode{% endif %}">
+
+<div class="container">
+    <h1>Мне трудно управлять мышью</h1>
+
+    <form method="POST">
+        <p>
+            <label>Ваше имя</label><br>
+            <input type="text" name="name" required>
+        </p>
+
+        <p>
+            <label>С чем сложнее всего</label><br>
+            <select name="difficulty">
+                <option value="клик">Клик</option>
+                <option value="движение">Движение мыши</option>
+                <option value="перетаскивание">Перетаскивание</option>
+            </select>
+        </p>
+
+        <div class="buttons">
+            <button type="submit" class="success">
+                Отправить
+            </button>
+        </div>
+    </form>
+
+    <a href="/">Назад</a>
+</div>
+
+</body>
+</html>

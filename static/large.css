@@ -1,0 +1,28 @@
+.large-mode button {
+    font-size: 26px;
+    padding: 28px;
+}
+
+.large-mode p,
+.large-mode h1 {
+    font-size: 26px;
+}
+
+.large-mode input,
+.large-mode select {
+    font-size: 22px;
+    padding: 20px;
+}
+
+.large-mode .container {
+    max-width: 650px;
+}
+
+body.extra-large-mode .btn {
+    min-height: 150px;
+    font-size: 40px;
+}
+body.extra-large-mode .links {
+    display: grid;
+    grid-template-columns: 1fr;
+}

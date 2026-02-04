@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Игра: Перетаскивание</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="/static/script.js"></script>
+
+
+</head>
+<body class="{{ 'dark-mode' if dark_mode else '' }}">
+
+<div class="game-container">
+    <h2>Перетащи числа</h2>
+    
+    <div id="numbersContainer"></div>
+    
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+    
+    <div id="slotsContainer"></div>
+    
+    <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; border: none; background: #95a5a6; color: white; border-radius: 5px; cursor: pointer;">Обновить игру</button>
+</div>
+
+<script>
+    const numbersContainer = document.getElementById('numbersContainer');
+    const slotsContainer = document.getElementById('slotsContainer');
+
+    function generateRandomNumbers(count) {
+        let nums = [];
+        while(nums.length < count) {
+            let r = Math.floor(Math.random() * 20) + 1;
+            if(nums.indexOf(r) === -1) nums.push(r);
+        }
+        return nums;
+    }
+
+    const gameNumbers = generateRandomNumbers(3);
+    
+    gameNumbers.forEach(num => {
+        const slot = document.createElement('div');
+        slot.className = 'drop-slot';
+        slot.dataset.correct = num;
+        slot.textContent = '?';
+        slotsContainer.appendChild(slot);
+    });
+
+    [...gameNumbers].sort(() => Math.random() - 0.5).forEach(num => {
+        const item = document.createElement('div');
+        item.className = 'drag-item';
+        item.draggable = true;
+        item.textContent = num;
+        item.id = 'num' + num;
+        numbersContainer.appendChild(item);
+    });
+
+
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('drag-item')) {
+            e.dataTransfer.setData('text', e.target.textContent);
+            e.dataTransfer.setData('id', e.target.id);
+        }
+    });
+
+    const dropzones = document.querySelectorAll('.drop-slot');
+    dropzones.forEach(zone => {
+        zone.addEventListener('dragover', (e) => e.preventDefault());
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text');
+            const draggedId = e.dataTransfer.getData('id');
+
+            if (data === zone.dataset.correct) {
+                zone.textContent = data;
+                zone.style.backgroundColor = "#3498db";
+                zone.style.border = "2px solid #2c3e50";
+                
+                document.getElementById(draggedId).style.visibility = 'hidden';
+                
+                showConfetti();
+            } else {
+                alert("Ничего страшного 💙Попробуем ещё раз 🙂");
+            }
+        });
+    });
+
+    function showConfetti() {
+        for (let i = 0; i < 30; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti-piece";
+            confetti.style.left = Math.random() * window.innerWidth + "px";
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = (1.5 + Math.random()) + "s";
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 2000);
+        }
+    }
+
+</script>
+</body>
+</html>
